@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luna & Energía</title>
+  <style>
+    /* ====== Estilos básicos (todo en un archivo para tu entrega) ====== */
+    :root {
+      --bg: #0b0f1a;
+      --card: #121829;
+      --text: #e8ecf1;
+      --muted: #9fb3c8;
+      --accent: #94b9ff;
+      --accent-2: #ffd08a;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(120deg, #0e1426, #131b33);
+      padding: 28px 16px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    header h1 { margin: 0; font-size: 1.9rem; letter-spacing: 0.5px; }
+    header p { margin: 6px 0 0; color: var(--muted); }
+    nav {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    nav a {
+      color: var(--text); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+      padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08);
+    }
+    nav a:hover { background: rgba(148,185,255,0.12); }
+
+    main { padding: 22px 16px 64px; max-width: 1000px; margin: 0 auto; }
+    section { background: var(--card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 18px; margin: 18px 0; }
+    h2 { margin-top: 0; font-size: 1.4rem; }
+    .grid { display: grid; gap: 14px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.08); color: var(--muted); font-size: 0.8rem; }
+    .muted { color: var(--muted); }
+
+    /* Tabla de fases */
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem; }
+    th, td { border: 1px solid rgba(255,255,255,0.12); text-align: left; padding: 8px; }
+    th { background: rgba(148,185,255,0.08); }
+
+    /* Tarjetas signos */
+    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 14px; }
+
+    /* Galería */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+    .gallery img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); }
+
+    /* Formulario */
+    form { display: grid; gap: 10px; max-width: 560px; }
+    input, textarea, select { background: #0e1530; color: var(--text); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 10px; font-size: 1rem; }
+    button { background: var(--accent); color: #0a0e1a; border: 0; font-weight: 700; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
+    button:hover { filter: brightness(1.05); }
+
+    /* Drag & Drop mini altar */
+    .altar-wrap { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; }
+    .draggable { width: 100px; height: 100px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.2);
+      display: grid; place-items: center; user-select: none; }
+    #dropzone { min-height: 110px; border: 2px dashed rgba(255,255,255,0.25); border-radius: 12px; display: grid; place-items: center; }
+    #dropzone.ok { border-color: var(--accent-2); background: rgba(255,208,138,0.08); }
+
+    footer { text-align: center; color: var(--muted); padding: 28px 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌙 Luna & Energía</h1>
+    <p class="muted">Info clara + un toque holístico para reflexionar y aprender</p>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#fases">Fases</a>
+      <a href="#astrologia">Astrología</a>
+      <a href="#aromas">Aromaterapia</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- INICIO -->
+    <section id="inicio">
+      <h2>Bienvenid@</h2>
+      <p>
+        Esta web comparte información sencilla sobre <strong>las fases de la Luna</strong> y
+        temas relacionados como <em>astrología básica</em> y <em>aromaterapia</em>. Es un espacio
+        pensado para que sea "una web a la que yo entraría" — con detalles que inviten a
+        <q>parar un segundo y conectar</q>.
+      </p>
+      <p class="muted">
+        Tip: pasá el mouse por la abreviatura →
+        <abbr title="Ciudad Autónoma de Buenos Aires">CABA</abbr>
+      </p>
+      <blockquote cite="https://es.wikipedia.org/wiki/Luna">
+        “La Luna ha sido guía de calendarios, mareas e historias desde tiempos remotos.”
+      </blockquote>
+    </section>
+
+    <!-- FASES DE LA LUNA (con tabla) -->
+    <section id="fases">
+      <h2>Fases de la Luna <span class="tag">tabla + imágenes</span></h2>
+      <table>
+        <caption>Resumen básico de fases</caption>
+        <tr>
+          <th>Fase</th>
+          <th>Descripción</th>
+          <th>Imagen</th>
+        </tr>
+        <tr>
+          <td>Luna nueva</td>
+          <td>No visible; ideal para intención y comienzos.</td>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/New_moon.jpg" alt="Luna nueva" width="80" /></td>
+        </tr>
+        <tr>
+          <td>Cuarto creciente</td>
+          <td>Avance y construcción; energía en aumento.</td>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Moon_first_quarter.jpg" alt="Cuarto creciente" width="80" /></td>
+        </tr>
+        <tr>
+          <td>Luna llena</td>
+          <td>Culminación, claridad y emociones a flor de piel.</td>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg" alt="Luna llena" width="80" /></td>
+        </tr>
+        <tr>
+          <td>Cuarto menguante</td>
+          <td>Soltar, ordenar y cerrar ciclos.</td>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Moon_last_quarter.jpg" alt="Cuarto menguante" width="80" /></td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- ASTROLOGÍA BÁSICA (tarjetas) -->
+    <section id="astrologia">
+      <h2>Astrología básica <span class="tag">12 signos</span></h2>
+      <div class="grid grid-3" aria-label="Signos del zodíaco">
+        <div class="card"><strong>Aries</strong><br><span class="muted">Energía, iniciativa</span></div>
+        <div class="card"><strong>Tauro</strong><br><span class="muted">Estabilidad, disfrute</span></div>
+        <div class="card"><strong>Géminis</strong><br><span class="muted">Comunicación, curiosidad</span></div>
+        <div class="card"><strong>Cáncer</strong><br><span class="muted">Emoción, cuidado</span></div>
+        <div class="card"><strong>Leo</strong><br><span class="muted">Creatividad, brillo</span></div>
+        <div class="card"><strong>Virgo</strong><br><span class="muted">Orden, análisis</span></div>
+        <div class="card"><strong>Libra</strong><br><span class="muted">Armonía, vínculos</span></div>
+        <div class="card"><strong>Escorpio</strong><br><span class="muted">Transformación, intensidad</span></div>
+        <div class="card"><strong>Sagitario</strong><br><span class="muted">Exploración, sentido</span></div>
+        <div class="card"><strong>Capricornio</strong><br><span class="muted">Estructura, logro</span></div>
+        <div class="card"><strong>Acuario</strong><br><span class="muted">Ideas, comunidad</span></div>
+        <div class="card"><strong>Piscis</strong><br><span class="muted">Sensibilidad, inspiración</span></div>
+      </div>
+    </section>
+
+    <!-- AROMATERAPIA (lista) -->
+    <section id="aromas">
+      <h2>Aromaterapia <span class="tag">lista simple</span></h2>
+      <ul>
+        <li><strong>Lavanda</strong>: calma y descanso.</li>
+        <li><strong>Palo santo</strong>: limpieza energética.</li>
+        <li><strong>Canela</strong>: energía y enfoque.</li>
+        <li><strong>Eucalipto</strong>: despeje y respiración.</li>
+      </ul>
+    </section>
+
+    <!-- GALERÍA (grid de imágenes) -->
+    <section id="galeria">
+      <h2>Galería lunar</h2>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90b3?q=80&w=1200&auto=format&fit=crop" alt="Cielo estrellado" />
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Luna llena" />
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Vía Láctea" />
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Paisaje nocturno" />
+      </div>
+    </section>
+
+    <!-- Mini demo DOM + Drag & Drop (contenido visto en clase) -->
+    <section id="demo">
+      <h2>Mini demo: DOM + Drag & Drop</h2>
+      <div class="altar-wrap">
+        <div class="draggable" id="moon" draggable="true" title="Arrastrame">🌕</div>
+        <div id="dropzone" aria-label="Zona para soltar">Soltá la Luna acá ✨</div>
+      </div>
+      <p class="muted" id="demoMsg">Tip: esto usa <code>dragstart</code>, <code>dragover</code> y <code>drop</code>.</p>
+      <button id="toggle">Cambiar modo (cálido/frío)</button>
+    </section>
+
+    <!-- CONTACTO (form) -->
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <form id="contactForm">
+        <label>Nombre <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required /></label>
+        <label>Email <input type="email" id="email" name="email" placeholder="tu@email.com" required /></label>
+        <label>Motivo
+          <select id="motivo" name="motivo">
+            <option>Consulta</option>
+            <option>Sugerencia</option>
+            <option>Otro</option>
+          </select>
+        </label>
+        <label>Mensaje
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribí tu mensaje..."></textarea>
+        </label>
+        <button type="submit">Enviar</button>
+        <p class="muted" id="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer id="pie">
+    <address>
+      Hecho por Agus • <a href="mailto:luna@ejemplo.com">luna@ejemplo.com</a>
+    </address>
+    <cite>Proyecto Final – Introducción a la Programación Web</cite>
+  </footer>
+
+  <script>
+    // ====== JS básico (DOM + eventos) ======
+
+    // Ejemplo de getElementById + addEventListener
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      // Guardamos nombre/email en localStorage (visto en clase: almacenamiento local)
+      localStorage.setItem('nombre', nombre);
+      localStorage.setItem('email', email);
+      status.textContent = `Gracias, ${nombre}! Te responderemos a ${email}.`;
+    });
+
+    // Toggle de esquema de color (demito DOM)
+    const toggleBtn = document.getElementById('toggle');
+    toggleBtn.addEventListener('click', () => {
+      const body = document.body.style;
+      // Cambiamos 2 variables básicas
+      if (getComputedStyle(document.documentElement).getPropertyValue('--card').trim() === '#121829') {
+        document.documentElement.style.setProperty('--card', '#221a12');
+        document.documentElement.style.setProperty('--accent', '#ffd08a');
+        toggleBtn.textContent = 'Cambiar modo (frío)';
+      } else {
+        document.documentElement.style.setProperty('--card', '#121829');
+        document.documentElement.style.setProperty('--accent', '#94b9ff');
+        toggleBtn.textContent = 'Cambiar modo (cálido)';
+      }
+    });
+
+    // Drag & Drop mini-demo
+    const moon = document.getElementById('moon');
+    const dropzone = document.getElementById('dropzone');
+    const demoMsg = document.getElementById('demoMsg');
+
+    moon.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', '🌕');
+    });
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault(); // necesario para permitir drop
+      dropzone.classList.add('ok');
+    });
+
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('ok'));
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('ok');
+      dropzone.textContent = '¡Listo! La Luna quedó en el altar ✨';
+      demoMsg.textContent = 'Eventos usados: dragstart + dragover + drop (y preventDefault en dragover)';
+    });
+  </script>
+</body>
+</html>
