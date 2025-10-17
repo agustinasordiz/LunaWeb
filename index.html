@@ -53,10 +53,22 @@
     .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.08); color: var(--muted); font-size: 0.8rem; }
     .muted { color: var(--muted); }
 
+    /* NUEVO: mensaje de bienvenida personalizado */
+    .bienvenida {
+      background: linear-gradient(120deg, rgba(148,185,255,0.15), rgba(255,208,138,0.15));
+      border: 1px solid var(--accent);
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
     /* Tabla de fases */
     table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem; }
     th, td { border: 1px solid rgba(255,255,255,0.12); text-align: left; padding: 8px; }
     th { background: rgba(148,185,255,0.08); }
+    .emoji-luna { font-size: 3rem; text-align: center; }
 
     /* Tarjetas signos */
     .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
@@ -76,9 +88,21 @@
     /* Drag & Drop mini altar */
     .altar-wrap { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; }
     .draggable { width: 100px; height: 100px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.2);
-      display: grid; place-items: center; user-select: none; }
+      display: grid; place-items: center; user-select: none; cursor: grab; font-size: 3rem; }
+    .draggable:active { cursor: grabbing; }
     #dropzone { min-height: 110px; border: 2px dashed rgba(255,255,255,0.25); border-radius: 12px; display: grid; place-items: center; }
     #dropzone.ok { border-color: var(--accent-2); background: rgba(255,208,138,0.08); }
+
+    /* NUEVO: Reloj simple */
+    .reloj {
+      background: rgba(148,185,255,0.1);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 12px;
+      font-family: monospace;
+    }
 
     footer { text-align: center; color: var(--muted); padding: 28px 16px; }
   </style>
@@ -98,6 +122,9 @@
   </header>
 
   <main>
+    <!-- NUEVO: Saludo personalizado si ya te escribió antes -->
+    <div id="saludoPersonalizado"></div>
+
     <!-- INICIO -->
     <section id="inicio">
       <h2>Bienvenid@</h2>
@@ -107,12 +134,16 @@
         pensado para que sea "una web a la que yo entraría" — con detalles que inviten a
         <q>parar un segundo y conectar</q>.
       </p>
+      
+      <!-- NUEVO: Reloj en tiempo real -->
+      <div class="reloj" id="reloj">Cargando hora...</div>
+      
       <p class="muted">
         Tip: pasá el mouse por la abreviatura →
         <abbr title="Ciudad Autónoma de Buenos Aires">CABA</abbr>
       </p>
       <blockquote cite="https://es.wikipedia.org/wiki/Luna">
-        “La Luna ha sido guía de calendarios, mareas e historias desde tiempos remotos.”
+        "La Luna ha sido guía de calendarios, mareas e historias desde tiempos remotos."
       </blockquote>
     </section>
 
@@ -124,27 +155,27 @@
         <tr>
           <th>Fase</th>
           <th>Descripción</th>
-          <th>Imagen</th>
+          <th>Símbolo</th>
         </tr>
         <tr>
           <td>Luna nueva</td>
           <td>No visible; ideal para intención y comienzos.</td>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/New_moon.jpg" alt="Luna nueva" width="80" /></td>
+          <td class="emoji-luna">🌑</td>
         </tr>
         <tr>
           <td>Cuarto creciente</td>
           <td>Avance y construcción; energía en aumento.</td>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Moon_first_quarter.jpg" alt="Cuarto creciente" width="80" /></td>
+          <td class="emoji-luna">🌓</td>
         </tr>
         <tr>
           <td>Luna llena</td>
           <td>Culminación, claridad y emociones a flor de piel.</td>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg" alt="Luna llena" width="80" /></td>
+          <td class="emoji-luna">🌕</td>
         </tr>
         <tr>
           <td>Cuarto menguante</td>
           <td>Soltar, ordenar y cerrar ciclos.</td>
-          <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Moon_last_quarter.jpg" alt="Cuarto menguante" width="80" /></td>
+          <td class="emoji-luna">🌗</td>
         </tr>
       </table>
     </section>
@@ -183,10 +214,10 @@
     <section id="galeria">
       <h2>Galería lunar</h2>
       <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90b3?q=80&w=1200&auto=format&fit=crop" alt="Cielo estrellado" />
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Luna llena" />
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Vía Láctea" />
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Paisaje nocturno" />
+        <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90b3?q=80&w=1200&auto=format&fit=crop" alt="Cielo estrellado nocturno" />
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Luna llena brillante" />
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Vía Láctea en el cielo" />
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Paisaje nocturno con luna" />
       </div>
     </section>
 
@@ -194,7 +225,7 @@
     <section id="demo">
       <h2>Mini demo: DOM + Drag & Drop</h2>
       <div class="altar-wrap">
-        <div class="draggable" id="moon" draggable="true" title="Arrastrame">🌕</div>
+        <div class="draggable" id="moon" draggable="true" title="Arrastrame al altar">🌕</div>
         <div id="dropzone" aria-label="Zona para soltar">Soltá la Luna acá ✨</div>
       </div>
       <p class="muted" id="demoMsg">Tip: esto usa <code>dragstart</code>, <code>dragover</code> y <code>drop</code>.</p>
@@ -227,13 +258,38 @@
     <address>
       Hecho por Agus • <a href="mailto:luna@ejemplo.com">luna@ejemplo.com</a>
     </address>
-    <cite>Proyecto Final – Introducción a la Programación Web</cite>
+    <cite>Proyecto – Introducción a la Programación Web</cite>
   </footer>
 
   <script>
-    // ====== JS básico (DOM + eventos) ======
+    // ====== MEJORA 1: Saludo personalizado al cargar la página ======
+    window.addEventListener('load', function() {
+      // Busco si ya hay un nombre guardado
+      const nombreGuardado = localStorage.getItem('nombre');
+      const saludoDiv = document.getElementById('saludoPersonalizado');
+      
+      if (nombreGuardado) {
+        // Si hay nombre, muestro saludo personalizado
+        saludoDiv.innerHTML = `<div class="bienvenida">¡Hola de nuevo, ${nombreGuardado}! 🌙</div>`;
+      }
+    });
 
-    // Ejemplo de getElementById + addEventListener
+    // ====== MEJORA 2: Reloj en tiempo real ======
+    function actualizarReloj() {
+      const ahora = new Date();
+      const horas = String(ahora.getHours()).padStart(2, '0');
+      const minutos = String(ahora.getMinutes()).padStart(2, '0');
+      const segundos = String(ahora.getSeconds()).padStart(2, '0');
+      
+      const relojDiv = document.getElementById('reloj');
+      relojDiv.textContent = `🕐 ${horas}:${minutos}:${segundos}`;
+    }
+    
+    // Actualizo el reloj cada segundo
+    actualizarReloj(); // Primera vez
+    setInterval(actualizarReloj, 1000); // Cada 1000 milisegundos = 1 segundo
+
+    // ====== Formulario de contacto ======
     const form = document.getElementById('contactForm');
     const status = document.getElementById('status');
 
@@ -241,17 +297,18 @@
       e.preventDefault();
       const nombre = document.getElementById('nombre').value.trim();
       const email = document.getElementById('email').value.trim();
-      // Guardamos nombre/email en localStorage (visto en clase: almacenamiento local)
+      
+      // Guardo en localStorage
       localStorage.setItem('nombre', nombre);
       localStorage.setItem('email', email);
+      
       status.textContent = `Gracias, ${nombre}! Te responderemos a ${email}.`;
+      status.style.color = 'var(--accent-2)';
     });
 
-    // Toggle de esquema de color (demito DOM)
+    // ====== Toggle de esquema de color ======
     const toggleBtn = document.getElementById('toggle');
     toggleBtn.addEventListener('click', () => {
-      const body = document.body.style;
-      // Cambiamos 2 variables básicas
       if (getComputedStyle(document.documentElement).getPropertyValue('--card').trim() === '#121829') {
         document.documentElement.style.setProperty('--card', '#221a12');
         document.documentElement.style.setProperty('--accent', '#ffd08a');
@@ -263,7 +320,7 @@
       }
     });
 
-    // Drag & Drop mini-demo
+    // ====== Drag & Drop mini-demo ======
     const moon = document.getElementById('moon');
     const dropzone = document.getElementById('dropzone');
     const demoMsg = document.getElementById('demoMsg');
@@ -273,7 +330,7 @@
     });
 
     dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault(); // necesario para permitir drop
+      e.preventDefault();
       dropzone.classList.add('ok');
     });
 
