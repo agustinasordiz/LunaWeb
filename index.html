@@ -1,347 +1,519 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luna & Energía</title>
-  <style>
-    /* ====== Estilos básicos (todo en un archivo para tu entrega) ====== */
-    :root {
-      --bg: #0b0f1a;
-      --card: #121829;
-      --text: #e8ecf1;
-      --muted: #9fb3c8;
-      --accent: #94b9ff;
-      --accent-2: #ffd08a;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-    header {
-      background: linear-gradient(120deg, #0e1426, #131b33);
-      padding: 28px 16px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    header h1 { margin: 0; font-size: 1.9rem; letter-spacing: 0.5px; }
-    header p { margin: 6px 0 0; color: var(--muted); }
-    nav {
-      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-      margin-top: 12px;
-    }
-    nav a {
-      color: var(--text); text-decoration: none; font-weight: 600; font-size: 0.95rem;
-      padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08);
-    }
-    nav a:hover { background: rgba(148,185,255,0.12); }
-
-    main { padding: 22px 16px 64px; max-width: 1000px; margin: 0 auto; }
-    section { background: var(--card); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 18px; margin: 18px 0; }
-    h2 { margin-top: 0; font-size: 1.4rem; }
-    .grid { display: grid; gap: 14px; }
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.08); color: var(--muted); font-size: 0.8rem; }
-    .muted { color: var(--muted); }
-
-    /* NUEVO: mensaje de bienvenida personalizado */
-    .bienvenida {
-      background: linear-gradient(120deg, rgba(148,185,255,0.15), rgba(255,208,138,0.15));
-      border: 1px solid var(--accent);
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 18px;
-      text-align: center;
-      font-size: 1.1rem;
-    }
-
-    /* Tabla de fases */
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem; }
-    th, td { border: 1px solid rgba(255,255,255,0.12); text-align: left; padding: 8px; }
-    th { background: rgba(148,185,255,0.08); }
-    .emoji-luna { font-size: 3rem; text-align: center; }
-
-    /* Tarjetas signos */
-    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px; padding: 14px; }
-
-    /* Galería */
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-    .gallery img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); }
-
-    /* Formulario */
-    form { display: grid; gap: 10px; max-width: 560px; }
-    input, textarea, select { background: #0e1530; color: var(--text); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px; padding: 10px; font-size: 1rem; }
-    button { background: var(--accent); color: #0a0e1a; border: 0; font-weight: 700; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
-    button:hover { filter: brightness(1.05); }
-
-    /* Drag & Drop mini altar */
-    .altar-wrap { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; }
-    .draggable { width: 100px; height: 100px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.2);
-      display: grid; place-items: center; user-select: none; cursor: grab; font-size: 3rem; }
-    .draggable:active { cursor: grabbing; }
-    #dropzone { min-height: 110px; border: 2px dashed rgba(255,255,255,0.25); border-radius: 12px; display: grid; place-items: center; }
-    #dropzone.ok { border-color: var(--accent-2); background: rgba(255,208,138,0.08); }
-
-    /* NUEVO: Reloj simple */
-    .reloj {
-      background: rgba(148,185,255,0.1);
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 12px;
-      font-family: monospace;
-    }
-
-    footer { text-align: center; color: var(--muted); padding: 28px 16px; }
-  </style>
+  <!-- ============ METADATOS ESENCIALES ============ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Información del autor y descripción -->
+  <meta name="author" content="Agustina">
+  <meta name="description" content="Portal completo sobre fases lunares, astrología, aromaterapia y energía. Información clara y práctica para conectar con los ciclos de la Luna.">
+  <meta name="keywords" content="luna, fases lunares, astrología, signos zodiacales, aromaterapia, calendario lunar, luna llena, energía">
+  
+  <!-- SEO y robots -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Clasificación de contenido -->
+  <meta name="rating" content="general">
+  
+  <!-- Idioma del contenido -->
+  <meta http-equiv="content-language" content="es">
+  
+  <!-- Color del tema para navegadores móviles -->
+  <meta name="theme-color" content="#0b0f1a">
+  
+  <!-- Open Graph para redes sociales -->
+  <meta property="og:title" content="Luna & Energía - Portal Lunar">
+  <meta property="og:description" content="Descubre las fases de la Luna, astrología y más en nuestro portal holístico.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tudominio.com">
+  <meta property="og:image" content="https://tudominio.com/images/preview.jpg">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Luna & Energía - Portal Lunar">
+  <meta name="twitter:description" content="Conecta con los ciclos lunares y la energía natural">
+  
+  <title>Luna & Energía - Portal Lunar Completo</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+  
+  <!-- Vinculación de hojas de estilo externas -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- ============ ENCABEZADO PRINCIPAL ============ -->
   <header>
     <h1>🌙 Luna & Energía</h1>
-    <p class="muted">Info clara + un toque holístico para reflexionar y aprender</p>
-    <nav>
+    <p class="muted">Portal completo sobre ciclos lunares, astrología y energía natural</p>
+    
+    <!-- Navegación principal del sitio -->
+    <nav aria-label="Navegación principal">
       <a href="#inicio">Inicio</a>
+      <a href="#calendario">Calendario</a>
       <a href="#fases">Fases</a>
       <a href="#astrologia">Astrología</a>
       <a href="#aromas">Aromaterapia</a>
       <a href="#galeria">Galería</a>
+      <a href="#rituales">Rituales</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#faq">FAQ</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
 
+  <!-- ============ CONTENIDO PRINCIPAL ============ -->
   <main>
-    <!-- NUEVO: Saludo personalizado si ya te escribió antes -->
-    <div id="saludoPersonalizado"></div>
-
-    <!-- INICIO -->
+    
+    <!-- SECCIÓN 1: INICIO -->
     <section id="inicio">
-      <h2>Bienvenid@</h2>
+      <h2>Bienvenidos, Lunáticos ✨</h2>
       <p>
-        Esta web comparte información sencilla sobre <strong>las fases de la Luna</strong> y
-        temas relacionados como <em>astrología básica</em> y <em>aromaterapia</em>. Es un espacio
-        pensado para que sea "una web a la que yo entraría" — con detalles que inviten a
-        <q>parar un segundo y conectar</q>.
+        Este es tu espacio para conectar con <strong>la magia de la Luna</strong>,
+        <em> la astrología básica</em>, <em> la aromaterapia</em> y algunas prácticas holísticas. 
+         Aquí encontrarás información clara, práctica y actualizada para armonizarte con los 
+        ciclos naturales y tu propia energía. 
       </p>
+      <p>
+        Que este portal sea una herramienta para conocerte más, fluir con el Universo y 
+        recordar que todo - incluido tú - tiene su propio ciclo de luz, sombras y renovación.
+      </p>  
       
-      <!-- NUEVO: Reloj en tiempo real -->
-      <div class="reloj" id="reloj">Cargando hora...</div>
+      <!-- Contador regresivo a la próxima luna llena -->
+      <article class="contador-luna" aria-label="Contador hasta la próxima luna llena">
+        <h3>⏳ Próxima Luna Llena</h3>
+        <div id="contadorLunaLlena" class="contador-display">
+          Calculando...
+        </div>
+        <p class="muted" id="fechaLunaLlena"></p>
+      </article>
       
       <p class="muted">
-        Tip: pasá el mouse por la abreviatura →
-        <abbr title="Ciudad Autónoma de Buenos Aires">CABA</abbr>
+        <abbr title="Ciudad Autónoma de Buenos Aires">CABA</abbr>, Argentina 🇦🇷
       </p>
+      
+      <!-- Cita sobre la Luna -->
       <blockquote cite="https://es.wikipedia.org/wiki/Luna">
         "La Luna ha sido guía de calendarios, mareas e historias desde tiempos remotos."
       </blockquote>
+      <p> 
+        La Luna Llena es momento de <strong>culminación, claridad y liberación. </strong>
+        <p>
+          Aprovechá esta fase para cerrar ciclos, agradecer lo aprendido y soltar lo que ya no necesitas.
+          En la sección "Rituales" encontrarás prácticas para acompañar esta energía.
+        </p>
+      </p>
     </section>
 
-    <!-- FASES DE LA LUNA (con tabla) -->
+    <!-- SECCIÓN 2: CALENDARIO LUNAR -->
+    <section id="calendario">
+      <h2>📅 Calendario Lunar del Mes</h2>
+      <p>Visualiza las fases de la Luna durante el mes actual:</p>
+      
+      <!-- Grid del calendario -->
+      <div id="calendarioLunar" class="calendario-grid" aria-label="Calendario lunar mensual">
+        <!-- Se genera dinámicamente con JavaScript -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: FASES DE LA LUNA -->
     <section id="fases">
-      <h2>Fases de la Luna <span class="tag">tabla + imágenes</span></h2>
-      <table>
-        <caption>Resumen básico de fases</caption>
-        <tr>
-          <th>Fase</th>
-          <th>Descripción</th>
-          <th>Símbolo</th>
-        </tr>
-        <tr>
-          <td>Luna nueva</td>
-          <td>No visible; ideal para intención y comienzos.</td>
-          <td class="emoji-luna">🌑</td>
-        </tr>
-        <tr>
-          <td>Cuarto creciente</td>
-          <td>Avance y construcción; energía en aumento.</td>
-          <td class="emoji-luna">🌓</td>
-        </tr>
-        <tr>
-          <td>Luna llena</td>
-          <td>Culminación, claridad y emociones a flor de piel.</td>
-          <td class="emoji-luna">🌕</td>
-        </tr>
-        <tr>
-          <td>Cuarto menguante</td>
-          <td>Soltar, ordenar y cerrar ciclos.</td>
-          <td class="emoji-luna">🌗</td>
-        </tr>
+      <h2>Fases de la Luna <span class="tag">información detallada</span></h2>
+      
+      <!-- Tabla con las 4 fases principales -->
+      <table aria-label="Tabla de fases lunares">
+        <caption>Las cuatro fases principales de la Luna y sus significados</caption>
+        <thead>
+          <tr>
+            <th scope="col">Fase</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Símbolo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Luna nueva </td>
+            <td>No es visible desde la Tierra. Representa el inicio del ciclo lunar: un momento ideal para sembrar intenciones, 
+              establecer nuevos comienzos y planificar proyectos. Su energía invita al silencio, 
+              la introspección y la siembra interior.</td>
+            <td class="emoji-luna">🌑</td>
+          </tr>
+          <tr>
+            <td>Cuarto creciente </td>
+            <td>La Luna comienza a crecer y con ella la energía vital y la motivación. Es una fase de acción, construcción y 
+              progreso, ideal para avanzar en metas, tomar decisiones y nutrir lo que fue sembrado en la Luna Nueva.</td>
+            <td class="emoji-luna">🌓</td>
+          </tr>
+          <tr>
+            <td>Luna Llena </td>
+            <td>La Luna se muestra totalmente iluminada, simbolizando culminación, claridad y expansión emocional. 
+              Es tiempo de celebrar logros, agradecer y liberar lo que ya cumplió su propósito. 
+              La intuición y la sensibilidad están en su punto más alto.</td>
+            <td class="emoji-luna">🌕</td>
+          </tr>
+          <tr>
+            <td>Cuarto menguante </td>
+            <td>La Luna comienza a decrecer, trayendo consigo una energía de introspección, limpieza y cierre. 
+              Es el momento de soltar, ordenar y descansar, preparando el terreno para un nuevo ciclo.</td>
+            <td class="emoji-luna">🌗</td>
+          </tr>
+        </tbody>
       </table>
     </section>
 
-    <!-- ASTROLOGÍA BÁSICA (tarjetas) -->
+    <!-- SECCIÓN 4: ASTROLOGÍA BÁSICA -->
     <section id="astrologia">
-      <h2>Astrología básica <span class="tag">12 signos</span></h2>
-      <div class="grid grid-3" aria-label="Signos del zodíaco">
-        <div class="card"><strong>Aries</strong><br><span class="muted">Energía, iniciativa</span></div>
-        <div class="card"><strong>Tauro</strong><br><span class="muted">Estabilidad, disfrute</span></div>
-        <div class="card"><strong>Géminis</strong><br><span class="muted">Comunicación, curiosidad</span></div>
-        <div class="card"><strong>Cáncer</strong><br><span class="muted">Emoción, cuidado</span></div>
-        <div class="card"><strong>Leo</strong><br><span class="muted">Creatividad, brillo</span></div>
-        <div class="card"><strong>Virgo</strong><br><span class="muted">Orden, análisis</span></div>
-        <div class="card"><strong>Libra</strong><br><span class="muted">Armonía, vínculos</span></div>
-        <div class="card"><strong>Escorpio</strong><br><span class="muted">Transformación, intensidad</span></div>
-        <div class="card"><strong>Sagitario</strong><br><span class="muted">Exploración, sentido</span></div>
-        <div class="card"><strong>Capricornio</strong><br><span class="muted">Estructura, logro</span></div>
-        <div class="card"><strong>Acuario</strong><br><span class="muted">Ideas, comunidad</span></div>
-        <div class="card"><strong>Piscis</strong><br><span class="muted">Sensibilidad, inspiración</span></div>
+      <h2>Astrología Básica </h2>
+      <p>Cada signo del zodíaco posee una energía única que influye en nuestra personalidad, emociones y manera de 
+        vincularnos con el mundo. Conocer las características de cada signo nos ayuda a comprender cómo fluye nuestra 
+        energía en sincronía con los ciclos lunares 🌙</p>
+      
+      <!-- tarjetas con los 12 signos -->
+      <div class="grid grid-3" aria-label="Los doce signos del zodíaco">
+        <article class="card">
+          <span class="signo-simbolo">♈</span>
+          <strong>Aries</strong><br>
+          <span class="muted">21 mar - 19 abr<br>Energía, impulso y acción. 
+            Pionero del zodíaco, Aries nos inspira a iniciar con fuerza y valentía cada nuevo ciclo.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♉</span>
+          <strong>Tauro</strong><br>
+          <span class="muted">20 abr - 20 may<br>Estabilidad, disfrute y conexión con los sentidos. 
+            Tauro nos enseña a crear desde el placer y la calma.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♊</span>
+          <strong>Géminis</strong><br>
+          <span class="muted">21 may - 20 jun<br>Comunicación, curiosidad y movimiento. 
+            Representa la mente abierta y la adaptabilidad frente a los cambios.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♋</span>
+          <strong>Cáncer</strong><br>
+          <span class="muted">21 jun - 22 jul<br>Emoción, cuidado y protección. 
+            Simboliza el hogar, la empatía y el refugio interior.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♌</span>
+          <strong>Leo</strong><br>
+          <span class="muted">23 jul - 22 ago<br>Creatividad, brillo y confianza.
+             Nos anima a mostrar nuestra luz y compartirla con el mundo.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♍</span>
+          <strong>Virgo</strong><br>
+          <span class="muted">23 ago - 22 sep<br>Orden, análisis y servicio.
+             Nos invita a perfeccionar lo que hacemos y cuidar los detalles.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♎</span>
+          <strong>Libra</strong><br>
+          <span class="muted">23 sep - 22 oct<br>Armonía, vínculos y equilibrio. 
+            Su energía busca la belleza y la paz en las relaciones.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♏</span>
+          <strong>Escorpio</strong><br>
+          <span class="muted">23 oct - 21 nov<br>Transformación, intensidad y poder interior. 
+            Nos impulsa a renacer a través de la profundidad emocional.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♐</span>
+          <strong>Sagitario</strong><br>
+          <span class="muted">22 nov - 21 dic<br>Exploración, sabiduría y expansión. 
+            Representa la búsqueda del sentido y la libertad.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♑</span>
+          <strong>Capricornio</strong><br>
+          <span class="muted">22 dic - 19 ene<br>Estructura, responsabilidad y logro. 
+            Nos enseña la disciplina y la fuerza para alcanzar nuestras metas.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♒</span>
+          <strong>Acuario</strong><br>
+          <span class="muted">20 ene - 18 feb<br>Ideas, comunidad y evolución. 
+            Es el signo del cambio y la innovación, guiado por ideales humanitarios.</span>
+        </article>
+        <article class="card">
+          <span class="signo-simbolo">♓</span>
+          <strong>Piscis</strong><br>
+          <span class="muted">19 feb - 20 mar<br>Sensibilidad, inspiración y empatía. 
+            Conecta con el mundo emocional, los sueños y lo espiritual.</span>
+        </article>
       </div>
     </section>
 
-    <!-- AROMATERAPIA (lista) -->
+    <!-- SECCIÓN 5: AROMATERAPIA -->
     <section id="aromas">
-      <h2>Aromaterapia <span class="tag">lista simple</span></h2>
+      <h2>🌺 Aromaterapia Lunar</h2>
+      <p>
+        Cada fase de la Luna nos invita a conectar con una energía diferente. Los aromas pueden 
+        ayudarnos a alinear cuerpo, mente y espíritu con esos ritmos naturales. Aquí encontrarás 
+        aceites esenciales y esencias recomendadas para acompañar cada momento lunar:
+      </p>
+      
+      <h3>🌑 <u>Renacer y Purificar</u></h3>
       <ul>
-        <li><strong>Lavanda</strong>: calma y descanso.</li>
-        <li><strong>Palo santo</strong>: limpieza energética.</li>
-        <li><strong>Canela</strong>: energía y enfoque.</li>
-        <li><strong>Eucalipto</strong>: despeje y respiración.</li>
+        <li><strong>Palo Santo</strong>: Limpieza energética y renovación. Ideal para nuevos comienzos y siembras de intención.</li>
+        <li><strong>Sándalo</strong>: Calma interior, claridad y conexión espiritual. Facilita la meditación y el enfoque.</li>
+      </ul>
+      <p class="muted" style="font-style: italic; margin-bottom: 2rem;">Ideales para la Luna Nueva</p>
+    
+      <h3>🌓 <u>Acción y Crecimiento</u></h3>
+      <ul>
+        <li><strong>Canela</strong>: Aporta energía, motivación y enfoque. Perfecta para manifestar y avanzar con determinación.</li>
+        <li><strong>Eucalipto</strong>: Despeja la mente, fortalece la respiración y renueva la vitalidad.</li>
+      </ul>
+      <p class="muted" style="font-style: italic; margin-bottom: 2rem;">Ideal para Cuarto Creciente</p>
+    
+      <h3>🌕 <u>Culminar y Expandir</u></h3>
+      <ul>
+        <li><strong>Lavanda</strong>: Promueve calma, descanso y equilibrio emocional. Ideal cuando las emociones están intensas.</li>
+        <li><strong>Jazmín</strong>: Estimula la intuición y los sueños lúcidos. Conecta con la energía más elevada del alma.</li>
+      </ul>
+      <p class="muted" style="font-style: italic; margin-bottom: 2rem;">Ideal para Luna Llena</p>
+    
+      <h3>🌗 <u>Soltar y Sanar</u></h3>
+      <ul>
+        <li><strong>Romero</strong>: Limpieza mental y energética. Ayuda a cerrar ciclos con claridad.</li>
+        <li><strong>Cedro</strong>: Tierra y contención. Favorece el descanso y la liberación de lo que ya no necesitamos.</li>
+      </ul>
+      <p class="muted" style="font-style: italic; margin-bottom: 2rem;">Ideales para Cuarto Menguante</p>
+    
+      <blockquote style="margin-top: 2rem; border-left-color: var(--accent-2);">
+        "Cada aroma es un puente invisible entre el mundo material y el energético. 
+        Usarlos conscientemente durante las fases lunares nos ayuda a vivir en armonía 
+        con los ritmos de la Tierra y del corazón." 🌙
+      </blockquote>
+    </section>
+
+    <!-- SECCIÓN 6: GALERÍA LUNAR -->
+    <section id="galeria">
+      <h2>Galería Lunar 📸</h2>
+      <p>Imágenes inspiradoras de la Luna en sus diferentes manifestaciones:</p>
+      
+      <!-- Grid de imágenes temáticas -->
+      <div class="gallery" aria-label="Galería de fotografías lunares">
+        <figure>
+          <img src="https://images.unsplash.com/photo-1532693322450-2cb5c511067d?q=80&w=800" alt="Luna llena brillante en cielo nocturno despejado" loading="lazy">
+          <figcaption>Luna llena</figcaption>
+        </figure>
+        <figure>
+          <img src="https://cdn.pixabay.com/photo/2023/10/23/17/10/landscape-8336496_1280.jpg" alt="Luna llena sobre montañas al atardecer" loading="lazy">
+          <figcaption>Luna Lunita</figcaption>
+        </figure>
+        <figure>
+          <img src="https://cdn.pixabay.com/photo/2017/05/27/14/03/moon-2348550_1280.jpg" alt="Silueta de árboles con luna llena de fondo" loading="lazy">
+          <figcaption>Luna entre árboles</figcaption>
+        </figure>
+        <figure>
+          <img src="https://cdn.pixabay.com/photo/2019/09/16/19/52/beach-4481919_1280.jpg" alt="Luna decreciente y su gran amigo el mar" loading="lazy">
+          <figcaption>Luna sobre el mar</figcaption>
+        </figure>
+        <figure>
+          <img src="https://cdn.pixabay.com/photo/2020/03/26/03/38/phase-of-the-moon-4969110_1280.jpg" alt="Fases lunares en tu ventana" loading="lazy">
+          <figcaption>Fases Lunares</figcaption>
+        </figure>
+        <figure>
+          <img src="https://cdn.pixabay.com/photo/2022/08/03/13/09/moon-7362632_1280.jpg" alt="MediaLuna" loading="lazy">
+          <figcaption>Media Luna</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: RITUALES LUNARES -->
+    <section id="rituales">
+      <h2>Rituales Lunares ✨</h2>
+      <p>Pequeñas prácticas para acompañar cada fase. Elegí una, hacéla simple, y honrá tu ritmo.</p>
+      
+      <article class="ritual-card">
+        <h3>🌑 Luna Nueva</h3>
+        <ul>  
+          <li>Intención: abrir espacio y definir rumbos.</li>
+          <li>Duración: 10–15 min</li>
+          <li>Ideal para: nuevos comienzos, claridad mental.</li>
+          <li> Materiales: papel y lapicera, vela blanca/plateada, palo santo o sándalo.</li>
+        </ul>
+        <ol>
+          <li>Encuentra un espacio tranquilo y cómodo</li>
+          <li>Escribe tus intenciones para el nuevo ciclo</li>
+          <li>Enciende una vela blanca o plateada</li>
+          <li>Lee tus intenciones en voz alta</li>
+          <li>Guarda el papel en un lugar especial</li>
+          <ul>
+            <li>Afirmación de cierre: <em> "Confío en mi intuición y siembro con amor lo que deseo vivir" </em></li>
+          </ul>
+        </ol>
+      </article>
+
+      <article class="ritual-card">
+        <h3>🌕 Luna Llena</h3>
+        <ul>  
+          <li>Intención: agradecer, iluminar lo que ya cumplió su ciclo.</li>
+          <li>Duración: 15–20 min</li>
+          <li>Ideal para: cierres, gratitud, intuición. </li>
+          <li> Materiales: recipiente con agua (agua lunar), lavanda / jazmín.</li>
+        </ul>
+        <ol>
+          <li>Llená un cuenco con agua; colocá cerca de una ventana.</li>
+          <li>Escribí lo que agradecés y lo que elegís soltar.</li>
+          <li>Respiración profunda; leé en voz alta.</li>
+          <li>Quema el papel de forma segura o Rompelo en trocitos y descartalos con respeto. (opcional)</li>
+          <li>Al día siguiente, usá el agua para regar o limpiar cristales.</li>
+          <ul>
+            <li>Afirmación de cierre: <em> “Reconozco mi camino y suelto con amor lo que ya no necesito.” </em></li>
+          </ul>
+        </ol>
+      </article>
+    </section>
+
+    <!-- SECCIÓN 8: RECURSOS -->
+    <section id="recursos">
+      <h2>Recursos Útiles 📚</h2>
+      <p>Fuentes oficiales para aprender sobre la Luna desde la mirada científica:</p>
+      
+      <ul class="recursos-lista">
+        <li>
+          <a href="https://www.iau.org/" target="_blank" rel="noopener noreferrer" title="Información científica y nomenclatura lunar.">
+            IAU – Unión Astronómica Internacional.
+          </a>
+        </li>
+        <li>
+          <a href="https://moon.nasa.gov/" target="_blank" rel="noopener noreferrer" title="Portal lunar oficial con imágenes, fases y misiones.">
+            NASA Moon 
+          </a>
+        </li>
+        <li>
+          <a href="https://es.wikipedia.org/wiki/Luna" target="_blank" rel="noopener noreferrer" title="Artículo de Wikipedia sobre la Luna">
+            Wikipedia - Luna
+          </a>
+        </li>
       </ul>
     </section>
 
-    <!-- GALERÍA (grid de imágenes) -->
-    <section id="galeria">
-      <h2>Galería lunar</h2>
-      <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90b3?q=80&w=1200&auto=format&fit=crop" alt="Cielo estrellado nocturno" />
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Luna llena brillante" />
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Vía Láctea en el cielo" />
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Paisaje nocturno con luna" />
-      </div>
+    <!-- SECCIÓN 9: PREGUNTAS FRECUENTES -->
+    <section id="faq">
+      <h2>Preguntas Frecuentes 🌙,</h2>
+      
+      <details>
+        <summary>¿Cuánto dura cada fase lunar?</summary>
+        <p>Cada fase principal (nueva, creciente, llena, menguante) dura aproximadamente 7 días, completando un ciclo completo de 29.5 días.</p>
+      </details>
+      
+      <details>
+        <summary>¿La Luna afecta realmente nuestras emociones?</summary>
+        <p>Aunque no hay evidencia científica concluyente, sabemos que la Luna influye en los ciclos biológicos y energéticos de la Tierra,como las mareas, debido a su fuerza gravitacional. Y si tambein sabemos que nuestro cuerpo está compuesto en un 70 % de agua, es natural preguntarnos: ¿cómo no habría de influir también en nosotros? Muchas personas perciben la energía de la luna en lo emocional.
+        <p>💫 Durante la Luna Llena, es común sentir más intensidad, mientras que en la Menguante, 
+          redomina la introspección. </p> 
+          <p> <em>No es magia, es sincronía natural...</em> </p>
+      </details>
+      
+      <details>
+        <summary>¿Cuándo es el mejor momento para hacer rituales?</summary>
+        <ul>
+            <p>🌑 Luna Nueva: para iniciar y sembrar.</p>
+            <p>🌓 Creciente: para accionar y manifestar.</p>
+            <p>🌕 Llena: para agradecer y liberar.</p>
+            <p>🌗 Menguante: para soltar y descansar.</p>
+             <p>💬 Lo ideal es hacerlo la noche exacta o el día siguiente de cada fase.</p> 
+        </ul>
+      </details>
+      
+      <details>
+        <summary>¿Qué es una superluna?</summary>
+        <p>Una superluna ocurre cuando la Luna está más cerca de la Tierra (en su perigeo) y se ve hasta un 14 % más grande y brillante.</p>
+          <p>🌟 Es un momento ideal para meditar, agradecer o simplemente observar el cielo.</p>
+      </details>
     </section>
 
-    <!-- Mini demo DOM + Drag & Drop (contenido visto en clase) -->
-    <section id="demo">
-      <h2>La Luna en su altar</h2>
-      <div class="altar-wrap">
-        <div class="draggable" id="moon" draggable="true" title="Arrastrame al altar">🌕</div>
-        <div id="dropzone" aria-label="Zona para soltar">Soltá la Luna acá ✨</div>
-      </div>
-      <p class="muted" id="demoMsg">Arrastra La Luna</p>
-      <button id="toggle">Cambiar modo (cálido/frío)</button>
-    </section>
-
-    <!-- CONTACTO (form) -->
+    <!-- SECCIÓN 10: CONTACTO -->
     <section id="contacto">
-      <h2>Contacto</h2>
-      <form id="contactForm">
-        <label>Nombre <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required /></label>
-        <label>Email <input type="email" id="email" name="email" placeholder="tu@email.com" required /></label>
-        <label>Motivo
-          <select id="motivo" name="motivo">
-            <option>Consulta</option>
-            <option>Sugerencia</option>
-            <option>Otro</option>
+      <h2>Contacto 💌</h2>
+      <p>¿Tenés consultas, sugerencias o simplemente querés compartir tu experiencia lunar?
+        Escribinos y te responderemos con la energía más luminosa posible.</p>
+      
+      <!-- Formulario de contacto con validación -->
+      <form id="contactForm" aria-label="Formulario de contacto">
+        <label for="nombre">
+          Nombre *
+          <input type="text" id="nombre" name="nombre" placeholder=" Como te gustaría que te llamemos" required aria-required="true">
+        </label>
+        
+        <label for="email">
+          Email *
+          <input type="email" id="email" name="email" placeholder="Tu correo para que podamos responderte." required aria-required="true">
+        </label>
+        
+        <label for="motivo">
+          Motivo de contacto
+          <select id="motivo" name="motivo" aria-label="Selecciona el motivo de tu mensaje">
+            <option value="consulta">Consulta general</option>
+            <option value="sugerencia">Sugerencia de contenido</option>
+            <option value="colaboracion">Propuesta de colaboración</option>
+            <option value="otro">Otro</option>
           </select>
         </label>
-        <label>Mensaje
-          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribí tu mensaje..."></textarea>
+        
+        <label for="mensaje">
+          Mensaje *
+          <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribí tu mensaje aquí..." required aria-required="true"></textarea>
         </label>
-        <button type="submit">Enviar</button>
-        <p class="muted" id="status"></p>
+        
+        <button type="submit">Enviar Mensaje</button>
+        
+        <!-- Mensaje de confirmación (se llena con JS) -->
+        <p class="muted" id="status" role="status" aria-live="polite"></p>
       </form>
     </section>
+
+    <!-- Demo interactiva: Drag & Drop -->
+    <section id="demo" aria-label="Demostración interactiva">
+      <h2>Mini Altar Interactivo 🕯️</h2>
+      <p>Arrastrá la Luna al altar para activar tu intención:</p>
+      
+      <div class="altar-wrap">
+        <div class="draggable" id="moon" draggable="true" title="Arrastra la Luna al altar" role="button" tabindex="0">
+          🌕
+        </div>
+        <div id="dropzone" aria-label="Zona del altar para soltar la Luna">
+          Soltá la Luna aquí ✨
+        </div>
+      </div>
+      
+      <p class="muted" id="demoMsg" style="display: none;">
+        Esta funcionalidad usa eventos JavaScript: <code>dragstart</code>, <code>dragover</code> y <code>drop</code>
+      </p>
+      
+      <button id="toggle" aria-label="Cambiar esquema de colores">
+        Cambiar modo (cálido/frío)
+      </button>
+    </section>
+
   </main>
 
+  <!-- ============ PIE DE PÁGINA ============ -->
   <footer id="pie">
     <address>
-      Hecho por Agus • <a href="mailto:luna@ejemplo.com">luna@ejemplo.com</a>
+      Creado con 🌙 por <strong>Agustina</strong><br>
+      Contacto: <a href="mailto:luna@energia.com">luna@energia.com</a>
     </address>
-    <cite>Proyecto – Introducción a la Programación Web</cite>
+    
+    <p class="footer-info">
+      <cite>Proyecto – Introducción a la Programación Web</cite><br>
+      <small>Última actualización: Noviembre 2024</small>
+    </p>
+    
+    <p class="footer-legal">
+      <small>© 2024 Luna & Energía. Todos los derechos reservados.<br>
+      Las imágenes utilizadas provienen de fuentes libres de derechos.</small>
+    </p>
   </footer>
 
-  <script>
-    // ====== MEJORA 1: Saludo personalizado al cargar la página ======
-    window.addEventListener('load', function() {
-      // Busco si ya hay un nombre guardado
-      const nombreGuardado = localStorage.getItem('nombre');
-      const saludoDiv = document.getElementById('saludoPersonalizado');
-      
-      if (nombreGuardado) {
-        // Si hay nombre, muestro saludo personalizado
-        saludoDiv.innerHTML = `<div class="bienvenida">¡Hola de nuevo, ${nombreGuardado}! 🌙</div>`;
-      }
-    });
-
-    // ====== MEJORA 2: Reloj en tiempo real ======
-    function actualizarReloj() {
-      const ahora = new Date();
-      const horas = String(ahora.getHours()).padStart(2, '0');
-      const minutos = String(ahora.getMinutes()).padStart(2, '0');
-      const segundos = String(ahora.getSeconds()).padStart(2, '0');
-      
-      const relojDiv = document.getElementById('reloj');
-      relojDiv.textContent = `🕐 ${horas}:${minutos}:${segundos}`;
-    }
-    
-    // Actualizo el reloj cada segundo
-    actualizarReloj(); // Primera vez
-    setInterval(actualizarReloj, 1000); // Cada 1000 milisegundos = 1 segundo
-
-    // ====== Formulario de contacto ======
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('status');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value.trim();
-      const email = document.getElementById('email').value.trim();
-      
-      // Guardo en localStorage
-      localStorage.setItem('nombre', nombre);
-      localStorage.setItem('email', email);
-      
-      status.textContent = `Gracias, ${nombre}! Te responderemos a ${email}.`;
-      status.style.color = 'var(--accent-2)';
-    });
-
-    // ====== Toggle de esquema de color ======
-    const toggleBtn = document.getElementById('toggle');
-    toggleBtn.addEventListener('click', () => {
-      if (getComputedStyle(document.documentElement).getPropertyValue('--card').trim() === '#121829') {
-        document.documentElement.style.setProperty('--card', '#221a12');
-        document.documentElement.style.setProperty('--accent', '#ffd08a');
-        toggleBtn.textContent = 'Cambiar modo (frío)';
-      } else {
-        document.documentElement.style.setProperty('--card', '#121829');
-        document.documentElement.style.setProperty('--accent', '#94b9ff');
-        toggleBtn.textContent = 'Cambiar modo (cálido)';
-      }
-    });
-
-    // ====== Drag & Drop mini-demo ======
-    const moon = document.getElementById('moon');
-    const dropzone = document.getElementById('dropzone');
-    const demoMsg = document.getElementById('demoMsg');
-
-    moon.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData('text/plain', '🌕');
-    });
-
-    dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropzone.classList.add('ok');
-    });
-
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('ok'));
-
-    dropzone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('ok');
-      dropzone.textContent = '¡Listo! La Luna quedó en el altar ✨';
-      demoMsg.textContent = 'Eventos usados: dragstart + dragover + drop (y preventDefault en dragover)';
-    });
-  </script>
+  <!-- Vinculación del archivo JavaScript externo -->
+  <script src="script.js"></script>
 </body>
 </html>
